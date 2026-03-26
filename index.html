@@ -7,26 +7,31 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #fafafa;
-    --surface: #ffffff;
-    --border: #e5e7eb;
-    --border-hover: #d1d5db;
-    --text: #1f2937;
-    --text-secondary: #6b7280;
-    --text-muted: #9ca3af;
-    --accent: #4f46e5;
-    --accent-light: #eef2ff;
-    --correct: #059669;
-    --correct-bg: #ecfdf5;
-    --correct-border: #a7f3d0;
-    --wrong: #dc2626;
-    --wrong-bg: #fef2f2;
-    --wrong-border: #fecaca;
-    --warning: #d97706;
+    --bg: #0a0b0f;
+    --surface: #13141a;
+    --surface-2: #1a1b24;
+    --border: #1e2030;
+    --border-hover: #2e3150;
+    --text: #e2e8f0;
+    --text-secondary: #8892a4;
+    --text-muted: #4a5568;
+    --accent: #6366f1;
+    --accent-light: rgba(99,102,241,0.12);
+    --accent-glow: rgba(99,102,241,0.25);
+    --correct: #10b981;
+    --correct-bg: rgba(16,185,129,0.1);
+    --correct-border: rgba(16,185,129,0.35);
+    --wrong: #f87171;
+    --wrong-bg: rgba(248,113,113,0.1);
+    --wrong-border: rgba(248,113,113,0.35);
+    --warning: #fbbf24;
+    --partial-bg: rgba(251,191,36,0.1);
+    --partial-border: rgba(251,191,36,0.35);
     --radius: 10px;
-    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
-    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-    --shadow-md: 0 4px 6px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.03);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
+    --shadow: 0 2px 8px rgba(0,0,0,0.5);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.6);
+    --glow-accent: 0 0 20px rgba(99,102,241,0.15);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -74,12 +79,31 @@
     font-size: 1rem;
   }
 
+  /* ── Deep Space glow ── */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 500px;
+    background: radial-gradient(ellipse at center, rgba(99,102,241,0.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .container { position: relative; z-index: 1; }
+  .hero {
+    position: relative;
+    z-index: 1;
+  }
+
   /* ── Timer Bar ── */
   .timer-bar {
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(255,255,255,0.92);
+    background: rgba(10,11,15,0.92);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
@@ -169,7 +193,7 @@
     box-shadow: var(--shadow-sm);
     transition: border-color 0.2s, box-shadow 0.2s;
   }
-  .q-card:hover { border-color: var(--border-hover); box-shadow: var(--shadow); }
+  .q-card:hover { border-color: var(--border-hover); box-shadow: var(--shadow), var(--glow-accent); }
   .q-card.correct { border-color: var(--correct-border); background: var(--correct-bg); }
   .q-card.incorrect { border-color: var(--wrong-border); background: var(--wrong-bg); }
 
@@ -209,7 +233,7 @@
     font-size: 0.9rem;
     line-height: 1.5;
   }
-  .opt:hover { border-color: var(--border-hover); background: #f9fafb; }
+  .opt:hover { border-color: var(--border-hover); background: var(--surface-2); }
   .opt .letter {
     font-weight: 600;
     color: var(--text-muted);
@@ -291,7 +315,7 @@
     text-align: center;
   }
   .data-table th {
-    background: #f3f4f6;
+    background: var(--surface-2);
     font-weight: 600;
     font-size: 0.8rem;
   }
@@ -332,19 +356,19 @@
   }
   .frq-feedback.visible { display: block; }
   .frq-feedback.good { background: var(--correct-bg); border: 1px solid var(--correct-border); color: #065f46; }
-  .frq-feedback.partial { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; }
+  .frq-feedback.partial { background: var(--partial-bg); border: 1px solid var(--partial-border); color: #fcd34d; }
   .frq-feedback.needs-work { background: var(--wrong-bg); border: 1px solid var(--wrong-border); color: #991b1b; }
   .frq-feedback .fb-header { font-weight: 600; margin-bottom: 4px; }
   .frq-answer-key {
     display: none;
     margin-top: 10px;
     padding: 12px 16px;
-    background: #f0f4ff;
-    border: 1px solid #c7d2fe;
+    background: rgba(99,102,241,0.1);
+    border: 1px solid rgba(99,102,241,0.3);
     border-radius: 8px;
     font-size: 0.85rem;
     line-height: 1.65;
-    color: #3730a3;
+    color: #a5b4fc;
   }
   .frq-answer-key.visible { display: block; }
   .frq-answer-key strong { font-weight: 600; }
@@ -405,14 +429,14 @@
   .score-bar-track {
     width: 100%;
     height: 8px;
-    background: #e5e7eb;
+    background: var(--border);
     border-radius: 4px;
     margin-top: 18px;
     overflow: hidden;
   }
   .score-bar-fill {
     height: 100%;
-    background: var(--accent);
+    background: linear-gradient(90deg, var(--accent), #818cf8);
     border-radius: 4px;
     transition: width 0.8s ease;
   }
@@ -547,10 +571,13 @@
 
   <!-- Score -->
   <div class="score-panel" id="scorePanel">
-    <div class="score-big" id="scoreBig">0 / 15</div>
-    <div class="score-sub">Multiple Choice Score</div>
+    <div class="score-big" id="scoreBig">0 / 29</div>
+    <div class="score-sub" id="scoreSubText">Total Score (MCQ + FRQ)</div>
     <div class="score-bar-track"><div class="score-bar-fill" id="scoreBarFill" style="width:0%"></div></div>
-    <div class="score-sub" style="margin-top:16px" id="frqScoreText">FRQ scores shown above each question.</div>
+    <div style="display:flex;gap:24px;justify-content:center;margin-top:18px;flex-wrap:wrap">
+      <div class="score-sub"><span id="mcqScoreDetail">MCQ: 0 / 15</span></div>
+      <div class="score-sub"><span id="frqScoreDetail">FRQ: 0 / 14</span></div>
+    </div>
   </div>
 
 </div>
@@ -941,11 +968,15 @@ function submitExam() {
   });
 
   // Grade FRQs
-  gradeFRQs();
+  const frqScore = gradeFRQs();
+  const totalScore = score + frqScore;
+  const totalPossible = 29;
 
   // Show score
-  document.getElementById('scoreBig').textContent = `${score} / 15`;
-  document.getElementById('scoreBarFill').style.width = `${(score/15)*100}%`;
+  document.getElementById('scoreBig').textContent = `${totalScore} / ${totalPossible}`;
+  document.getElementById('scoreBarFill').style.width = `${(totalScore/totalPossible)*100}%`;
+  document.getElementById('mcqScoreDetail').textContent = `MCQ: ${score} / 15`;
+  document.getElementById('frqScoreDetail').textContent = `FRQ: ${frqScore} / 14`;
   const panel = document.getElementById('scorePanel');
   panel.classList.add('visible');
   panel.scrollIntoView({ behavior: 'smooth' });
@@ -955,6 +986,7 @@ function submitExam() {
 //  FRQ GRADING
 // ════════════════════════════════════
 function gradeFRQs() {
+  let totalFrqEarned = 0;
   for (const [id, rubric] of Object.entries(frqRubrics)) {
     const textarea = document.getElementById(id);
     const fb = document.getElementById('fb' + id.slice(3));
@@ -991,6 +1023,8 @@ function gradeFRQs() {
       level = 'needs-work'; emoji = 'Needs improvement.';
     }
 
+    totalFrqEarned += earnedPts;
+
     fb.className = `frq-feedback visible ${level}`;
     let html = `<div class="fb-header">${emoji} (${earnedPts} / ${rubric.points} pts)</div>`;
     if (matchedDescs.length) html += `<div style="margin-top:4px">&#10003; ${matchedDescs.join('<br>&#10003; ')}</div>`;
@@ -998,6 +1032,7 @@ function gradeFRQs() {
     fb.innerHTML = html;
     ak.classList.add('visible');
   }
+  return totalFrqEarned;
 }
 
 function showAllKeys() {
