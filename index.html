@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AP Chemistry Practice Exam — Kinetics &amp; Thermodynamics</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fafafa;
+    --surface: #ffffff;
+    --border: #e5e7eb;
+    --border-hover: #d1d5db;
+    --text: #1f2937;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+    --accent: #4f46e5;
+    --accent-light: #eef2ff;
+    --correct: #059669;
+    --correct-bg: #ecfdf5;
+    --correct-border: #a7f3d0;
+    --wrong: #dc2626;
+    --wrong-bg: #fef2f2;
+    --wrong-border: #fecaca;
+    --warning: #d97706;
+    --radius: 10px;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.03);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 20px 100px;
+  }
+
+  /* ── Hero Header ── */
+  .hero {
+    text-align: center;
+    padding: 56px 20px 40px;
+    margin-bottom: 8px;
+  }
+  .hero-badge {
+    display: inline-block;
+    padding: 4px 14px;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+  }
+  .hero p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+  }
+
+  /* ── Timer Bar ── */
+  .timer-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 0;
+    margin-bottom: 32px;
+  }
+  .timer-inner {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .timer-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .timer-display {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text);
+    min-width: 72px;
+  }
+  .timer-display.warning { color: var(--wrong); }
+  .progress-pill {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    background: var(--bg);
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+  }
+  .timer-controls { display: flex; gap: 6px; }
+  .timer-btn {
+    padding: 6px 16px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .timer-btn:hover {
+    background: var(--bg);
+    border-color: var(--border-hover);
+  }
+
+  /* ── Section Headers ── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 40px 0 6px;
+  }
+  .section-header h2 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-secondary);
+  }
+  .section-header .line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .section-note {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    font-style: italic;
+  }
+
+  /* ── MCQ Cards ── */
+  .q-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .q-card:hover { border-color: var(--border-hover); box-shadow: var(--shadow); }
+  .q-card.correct { border-color: var(--correct-border); background: var(--correct-bg); }
+  .q-card.incorrect { border-color: var(--wrong-border); background: var(--wrong-bg); }
+
+  .q-num {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .q-text {
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 14px;
+    line-height: 1.65;
+  }
+  .q-subtext {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    margin: -8px 0 14px;
+    line-height: 1.55;
+    padding-left: 2px;
+  }
+
+  .options { display: flex; flex-direction: column; gap: 6px; }
+  .opt {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    cursor: pointer;
+    transition: all 0.12s;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  .opt:hover { border-color: var(--border-hover); background: #f9fafb; }
+  .opt .letter {
+    font-weight: 600;
+    color: var(--text-muted);
+    min-width: 20px;
+    padding-top: 1px;
+  }
+  .opt.selected {
+    border-color: var(--accent);
+    background: var(--accent-light);
+  }
+  .opt.selected .letter { color: var(--accent); }
+  .opt.show-correct {
+    border-color: var(--correct);
+    background: var(--correct-bg);
+  }
+  .opt.show-correct .letter { color: var(--correct); }
+  .opt.show-wrong {
+    border-color: var(--wrong);
+    background: var(--wrong-bg);
+  }
+  .opt.show-wrong .letter { color: var(--wrong); }
+
+  /* Explanation box */
+  .explanation {
+    display: none;
+    margin-top: 14px;
+    padding: 14px 16px;
+    border-radius: 8px;
+    font-size: 0.87rem;
+    line-height: 1.65;
+    border-left: 3px solid;
+  }
+  .explanation.visible { display: block; }
+  .explanation.is-correct {
+    background: var(--correct-bg);
+    border-left-color: var(--correct);
+    color: #065f46;
+  }
+  .explanation.is-wrong {
+    background: var(--wrong-bg);
+    border-left-color: var(--wrong);
+    color: #991b1b;
+  }
+  .explanation strong { font-weight: 600; }
+
+  /* ── FRQ Cards ── */
+  .frq-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-sm);
+  }
+  .frq-title {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+  .frq-body {
+    font-size: 0.92rem;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .frq-body p { margin-bottom: 6px; }
+  .chem { font-style: normal; }
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 0.85rem;
+  }
+  .data-table th, .data-table td {
+    border: 1px solid var(--border);
+    padding: 8px 10px;
+    text-align: center;
+  }
+  .data-table th {
+    background: #f3f4f6;
+    font-weight: 600;
+    font-size: 0.8rem;
+  }
+  .frq-part { margin: 20px 0; }
+  .frq-part-label {
+    font-size: 0.88rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+    line-height: 1.6;
+  }
+  .frq-textarea {
+    width: 100%;
+    min-height: 90px;
+    padding: 12px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background: var(--surface);
+  }
+  .frq-textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(79,70,229,0.1);
+  }
+
+  /* FRQ grading feedback */
+  .frq-feedback {
+    display: none;
+    margin-top: 10px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+  .frq-feedback.visible { display: block; }
+  .frq-feedback.good { background: var(--correct-bg); border: 1px solid var(--correct-border); color: #065f46; }
+  .frq-feedback.partial { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; }
+  .frq-feedback.needs-work { background: var(--wrong-bg); border: 1px solid var(--wrong-border); color: #991b1b; }
+  .frq-feedback .fb-header { font-weight: 600; margin-bottom: 4px; }
+  .frq-answer-key {
+    display: none;
+    margin-top: 10px;
+    padding: 12px 16px;
+    background: #f0f4ff;
+    border: 1px solid #c7d2fe;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    line-height: 1.65;
+    color: #3730a3;
+  }
+  .frq-answer-key.visible { display: block; }
+  .frq-answer-key strong { font-weight: 600; }
+
+  /* ── Action Buttons ── */
+  .actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 36px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    border: none;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 1px 2px rgba(79,70,229,0.3);
+  }
+  .btn-primary:hover { background: #4338ca; }
+  .btn-outline {
+    background: var(--surface);
+    color: var(--text);
+    border: 1.5px solid var(--border);
+  }
+  .btn-outline:hover { background: var(--bg); border-color: var(--border-hover); }
+
+  /* ── Score Panel ── */
+  .score-panel {
+    display: none;
+    margin-top: 32px;
+    padding: 32px;
+    background: var(--surface);
+    border: 2px solid var(--accent);
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+  }
+  .score-panel.visible { display: block; }
+  .score-big {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -1px;
+  }
+  .score-sub {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-top: 4px;
+  }
+  .score-bar-track {
+    width: 100%;
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 4px;
+    margin-top: 18px;
+    overflow: hidden;
+  }
+  .score-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 4px;
+    transition: width 0.8s ease;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 1.35rem; }
+    .timer-inner { flex-direction: column; gap: 10px; }
+    .q-card, .frq-card { padding: 16px; }
+    .actions { flex-direction: column; }
+    .btn { width: 100%; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-badge">Units 5 &ndash; 6</div>
+  <h1>AP Chemistry Practice Exam</h1>
+  <p>Kinetics and Thermodynamics</p>
+</div>
+
+<!-- Timer -->
+<div class="timer-bar">
+  <div class="timer-inner">
+    <div class="timer-left">
+      <span class="timer-display" id="timerDisplay">45:00</span>
+      <span class="progress-pill" id="progressPill">0 / 15 answered</span>
+    </div>
+    <div class="timer-controls">
+      <button class="timer-btn" onclick="startTimer()">Start</button>
+      <button class="timer-btn" onclick="pauseTimer()">Pause</button>
+      <button class="timer-btn" onclick="resetTimer()">Reset</button>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Section I: MCQ -->
+  <div class="section-header">
+    <h2>Section I &mdash; Multiple Choice</h2>
+    <div class="line"></div>
+  </div>
+  <p class="section-note">15 questions. Choose the best answer for each.</p>
+  <div id="mcqContainer"></div>
+
+  <!-- Section II: FRQ -->
+  <div class="section-header">
+    <h2>Section II &mdash; Free Response</h2>
+    <div class="line"></div>
+  </div>
+  <p class="section-note">Show all work for full credit. Your answers will be auto-graded against the rubric.</p>
+
+  <!-- FRQ 1 -->
+  <div class="frq-card" id="frq1Card">
+    <div class="frq-title">FRQ 1 &mdash; Kinetics (8 points)</div>
+    <div class="frq-body">
+      <p>The reaction between nitrogen dioxide and ozone is studied at 25&deg;C:</p>
+      <p><strong>NO<sub>2</sub>(g) + O<sub>3</sub>(g) &rarr; NO<sub>3</sub>(g) + O<sub>2</sub>(g)</strong></p>
+      <table class="data-table">
+        <tr><th>Experiment</th><th>Initial [NO<sub>2</sub>] (mol/L)</th><th>Initial [O<sub>3</sub>] (mol/L)</th><th>Initial Rate of [NO<sub>3</sub>] (mol/L/s)</th></tr>
+        <tr><td>1</td><td>0.010</td><td>0.020</td><td>3.0 &times; 10<sup>&minus;4</sup></td></tr>
+        <tr><td>2</td><td>0.010</td><td>0.040</td><td>6.0 &times; 10<sup>&minus;4</sup></td></tr>
+        <tr><td>3</td><td>0.030</td><td>0.020</td><td>2.7 &times; 10<sup>&minus;3</sup></td></tr>
+      </table>
+    </div>
+    <div class="frq-part">
+      <div class="frq-part-label">(a) (2 pts) Write the rate law expression for the reaction above.</div>
+      <textarea class="frq-textarea" id="frq1a" placeholder="Type your answer here..."></textarea>
+      <div class="frq-feedback" id="fb1a"></div>
+      <div class="frq-answer-key" id="ak1a"><strong>Answer:</strong> Rate = k[NO<sub>2</sub>]<sup>2</sup>[O<sub>3</sub>]. Comparing experiments 1 &amp; 2: [O<sub>3</sub>] doubles, rate doubles &rarr; first order in O<sub>3</sub>. Comparing 1 &amp; 3: [NO<sub>2</sub>] triples, rate &times;9 &rarr; second order in NO<sub>2</sub>.</div>
+    </div>
+    <div class="frq-part">
+      <div class="frq-part-label">(b) (2 pts) Calculate the numerical value of the rate constant and specify the units.</div>
+      <textarea class="frq-textarea" id="frq1b" placeholder="Type your answer here..."></textarea>
+      <div class="frq-feedback" id="fb1b"></div>
+      <div class="frq-answer-key" id="ak1b"><strong>Answer:</strong> 3.0&times;10<sup>&minus;4</sup> = k(0.010)<sup>2</sup>(0.020) = k(2.0&times;10<sup>&minus;6</sup>). <strong>k = 150 L<sup>2</sup> mol<sup>&minus;2</sup> s<sup>&minus;1</sup></strong></div>
+    </div>
+    <div class="frq-part">
+      <div class="frq-part-label">(c) (2 pts) Calculate the initial rate of the reaction if [NO<sub>2</sub>] = 0.040 mol/L and [O<sub>3</sub>] = 0.030 mol/L.</div>
+      <textarea class="frq-textarea" id="frq1c" placeholder="Type your answer here..."></textarea>
+      <div class="frq-feedback" id="fb1c"></div>
+      <div class="frq-answer-key" id="ak1c"><strong>Answer:</strong> Rate = 150(0.040)<sup>2</sup>(0.030) = 150(1.6&times;10<sup>&minus;3</sup>)(0.030) = <strong>7.2 &times; 10<sup>&minus;3</sup> mol/L/s</strong></div>
+    </div>
+    <div class="frq-part">
+      <div class="frq-part-label">(d) (2 pts) A student proposes this mechanism:<br>
+        &nbsp;&nbsp;Step 1: NO<sub>2</sub> + O<sub>3</sub> &rarr; NO<sub>3</sub> + O<sub>2</sub> (slow)<br>
+        &nbsp;&nbsp;Step 2: NO<sub>3</sub> + NO<sub>3</sub> &rarr; N<sub>2</sub>O<sub>6</sub> (fast)<br>
+        Is this mechanism consistent with the rate law from part (a)? Justify.</div>
+      <textarea class="frq-textarea" id="frq1d" placeholder="Type your answer here..."></textarea>
+      <div class="frq-feedback" id="fb1d"></div>
+      <div class="frq-answer-key" id="ak1d"><strong>Answer:</strong> No. The slow step gives Rate = k[NO<sub>2</sub>][O<sub>3</sub>] (first order in NO<sub>2</sub>), but the experimental rate law is second order in NO<sub>2</sub>. The mechanism is <strong>not consistent</strong>.</div>
+    </div>
+  </div>
+
+  <!-- FRQ 2 -->
+  <div class="frq-card" id="frq2Card">
+    <div class="frq-title">FRQ 2 &mdash; Thermodynamics (6 points)</div>
+    <div class="frq-body">
+      <p>Consider the following reaction at 298 K:</p>
+      <p><strong>CaCO<sub>3</sub>(s) &rarr; CaO(s) + CO<sub>2</sub>(g)</strong></p>
+      <p>Given: &Delta;H = +178 kJ/mol, &nbsp; &Delta;S = +161 J/(mol&middot;K)</p>
+    </div>
+    <div class="frq-part">
+      <div class="frq-part-label">(a) (2 pts) Calculate &Delta;G for this reaction at 298 K. Is the reaction spontaneous at this temperature? Show your work.</div>
+      <textarea class="frq-textarea" id="frq2a" placeholder="Type your answer here..."></textarea>
+      <div class="frq-feedback" id="fb2a"></div>
+      <div class="frq-answer-key" id="ak2a"><strong>Answer:</strong> &Delta;G = 178 &minus; 298(0.161) = <strong>+130.0 kJ</strong>. NOT spontaneous at 298 K (&Delta;G is positive).</div>
+    </div>
+    <div class="frq-part">
+      <div class="frq-part-label">(b) (2 pts) At what temperature (in K) will this reaction become spontaneous? Show your calculation.</div>
+      <textarea class="frq-textarea" id="frq2b" placeholder="Type your answer here..."></textarea>
+      <div class="frq-feedback" id="fb2b"></div>
+      <div class="frq-answer-key" id="ak2b"><strong>Answer:</strong> T = &Delta;H / &Delta;S = 178 / 0.161 = <strong>1106 K</strong>. Spontaneous above 1106 K.</div>
+    </div>
+    <div class="frq-part">
+      <div class="frq-part-label">(c) (2 pts) Explain why the sign of &Delta;S is positive for this reaction. Refer to the states of matter.</div>
+      <textarea class="frq-textarea" id="frq2c" placeholder="Type your answer here..."></textarea>
+      <div class="frq-feedback" id="fb2c"></div>
+      <div class="frq-answer-key" id="ak2c"><strong>Answer:</strong> &Delta;S is positive because CO<sub>2</sub> gas is produced from solid reactants, increasing disorder. Gases have much higher entropy than solids.</div>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="actions">
+    <button class="btn btn-primary" onclick="submitExam()">Submit Exam</button>
+    <button class="btn btn-outline" onclick="showAllKeys()">Show Answer Keys</button>
+    <button class="btn btn-outline" onclick="resetExam()">Reset Exam</button>
+  </div>
+
+  <!-- Score -->
+  <div class="score-panel" id="scorePanel">
+    <div class="score-big" id="scoreBig">0 / 15</div>
+    <div class="score-sub">Multiple Choice Score</div>
+    <div class="score-bar-track"><div class="score-bar-fill" id="scoreBarFill" style="width:0%"></div></div>
+    <div class="score-sub" style="margin-top:16px" id="frqScoreText">FRQ scores shown above each question.</div>
+  </div>
+
+</div>
+
+<script>
+// ════════════════════════════════════
+//  MCQ DATA — questions, options, answers, explanations
+// ════════════════════════════════════
+const mcqs = [
+  {
+    q: 'The rate law for a reaction is Rate = k[A]<sup>2</sup>[B]. What is the overall order of this reaction?',
+    opts: ['2','3','4','1'],
+    ans: 1,
+    explain: {
+      correct: 'The overall order is the sum of exponents: 2 + 1 = <strong>3</strong>.',
+      wrong: [
+        'Order 2 only accounts for [A]. You must also add the exponent on [B] (which is 1).',
+        null,
+        'Order 4 would require exponents summing to 4. Here 2 + 1 = 3.',
+        'Order 1 ignores the exponent on [A]. The exponent on [A] is 2, plus 1 for [B] = 3.'
+      ]
+    }
+  },
+  {
+    q: 'For a first-order reaction, a plot of which of the following versus time yields a straight line?',
+    opts: ['[A]','1/[A]','ln[A]','[A]<sup>2</sup>'],
+    ans: 2,
+    explain: {
+      correct: 'The integrated rate law for first order is ln[A] = &minus;kt + ln[A]<sub>0</sub>, which is linear in <strong>ln[A]</strong> vs time.',
+      wrong: [
+        '[A] vs time is linear for <em>zero</em>-order reactions, not first-order.',
+        '1/[A] vs time is linear for <em>second</em>-order reactions, not first-order.',
+        null,
+        '[A]<sup>2</sup> vs time does not correspond to any standard integrated rate law.'
+      ]
+    }
+  },
+  {
+    q: 'The half-life of a first-order reaction is 20 minutes. What fraction of the reactant remains after 60 minutes?',
+    opts: ['&frac12;','&frac14;','&#8539;','1/16'],
+    ans: 2,
+    explain: {
+      correct: '60 min &divide; 20 min = 3 half-lives. (&frac12;)<sup>3</sup> = <strong>&#8539;</strong> remains.',
+      wrong: [
+        '&frac12; would be after just 1 half-life (20 min), not 3.',
+        '&frac14; would be after 2 half-lives (40 min). 60 min = 3 half-lives.',
+        null,
+        '1/16 would require 4 half-lives (80 min). 60 min = only 3 half-lives.'
+      ]
+    }
+  },
+  {
+    q: 'Which of the following changes will increase the rate of a chemical reaction?',
+    opts: ['Decreasing the temperature','Adding a catalyst','Decreasing the concentration of reactants','Increasing the volume of the container'],
+    ans: 1,
+    explain: {
+      correct: 'A catalyst provides an alternative pathway with <strong>lower activation energy</strong>, increasing the rate.',
+      wrong: [
+        'Decreasing temperature means fewer molecules have enough energy to overcome E<sub>a</sub>, so rate <em>decreases</em>.',
+        null,
+        'Decreasing concentration means fewer collisions per unit time, so rate <em>decreases</em>.',
+        'Increasing volume lowers concentration (for gases), which <em>decreases</em> the rate.'
+      ]
+    }
+  },
+  {
+    q: 'A reaction mechanism consists of two steps:<br>Step 1 (slow): NO<sub>2</sub> + NO<sub>2</sub> &rarr; NO<sub>3</sub> + NO<br>Step 2 (fast): NO<sub>3</sub> + CO &rarr; NO<sub>2</sub> + CO<sub>2</sub><br>What is the rate law for the overall reaction?',
+    opts: ['Rate = k[NO<sub>2</sub>][CO]','Rate = k[NO<sub>2</sub>]<sup>2</sup>','Rate = k[NO<sub>3</sub>][CO]','Rate = k[NO<sub>2</sub>]<sup>2</sup>[CO]'],
+    ans: 1,
+    explain: {
+      correct: 'The slow (rate-determining) step involves 2 molecules of NO<sub>2</sub>, so <strong>Rate = k[NO<sub>2</sub>]<sup>2</sup></strong>.',
+      wrong: [
+        'CO appears only in the fast step. The rate law is determined by the <em>slow</em> step, which has no CO.',
+        null,
+        'NO<sub>3</sub> is an intermediate, not a reactant. It cannot appear in the overall rate law.',
+        'CO is not in the slow step. Only species in the rate-determining step appear in the rate law.'
+      ]
+    }
+  },
+  {
+    q: 'The activation energy for a certain reaction is 75 kJ/mol. Which best describes the effect of a catalyst?',
+    opts: ['It increases the activation energy','It decreases the activation energy','It increases the enthalpy of the reaction','It shifts the equilibrium toward products'],
+    ans: 1,
+    explain: {
+      correct: 'A catalyst <strong>lowers the activation energy</strong> by providing an alternative reaction pathway.',
+      wrong: [
+        'A catalyst <em>decreases</em> activation energy, not increases it.',
+        null,
+        'A catalyst does not change &Delta;H. It only changes the pathway, not the overall energy difference.',
+        'A catalyst speeds up both forward and reverse reactions equally, so it does <em>not</em> shift equilibrium.'
+      ]
+    }
+  },
+  {
+    q: 'For the reaction A &rarr; products, the following data were collected:<br>[A] = 0.100 M at t = 0 s, [A] = 0.050 M at t = 20 s, [A] = 0.025 M at t = 40 s<br>What is the order of this reaction with respect to A?',
+    opts: ['Zero order','First order','Second order','Third order'],
+    ans: 1,
+    explain: {
+      correct: 'The concentration halves every 20 s (constant half-life). A constant half-life is characteristic of <strong>first-order</strong> reactions.',
+      wrong: [
+        'For zero order, the concentration decreases by a constant <em>amount</em> each interval, not a constant <em>fraction</em>.',
+        null,
+        'For second order, the half-life <em>increases</em> as concentration decreases. Here half-life is constant.',
+        'Third order would show an even more dramatic change in half-life with concentration.'
+      ]
+    }
+  },
+  {
+    q: 'Which of the following statements about enthalpy is correct?',
+    opts: ['An exothermic reaction has a positive &Delta;H','An endothermic reaction has a negative &Delta;H','An exothermic reaction releases heat to the surroundings','Enthalpy changes depend on the pathway taken'],
+    ans: 2,
+    explain: {
+      correct: 'Exothermic means heat flows <em>out</em> of the system, so the reaction <strong>releases heat</strong> to the surroundings.',
+      wrong: [
+        'Exothermic reactions have <em>negative</em> &Delta;H, not positive.',
+        'Endothermic reactions have <em>positive</em> &Delta;H, not negative.',
+        null,
+        'Enthalpy is a state function — it depends only on initial and final states, <em>not</em> the pathway.'
+      ]
+    }
+  },
+  {
+    q: 'Given: &Delta;H<sub>f</sub>[CO<sub>2</sub>(g)] = &minus;393.5 kJ/mol, &Delta;H<sub>f</sub>[H<sub>2</sub>O(l)] = &minus;285.8 kJ/mol, &Delta;H<sub>f</sub>[C<sub>2</sub>H<sub>6</sub>(g)] = &minus;84.7 kJ/mol<br>What is &Delta;H for: C<sub>2</sub>H<sub>6</sub>(g) + 7/2 O<sub>2</sub>(g) &rarr; 2CO<sub>2</sub>(g) + 3H<sub>2</sub>O(l)?',
+    opts: ['&minus;1559.7 kJ','+1559.7 kJ','&minus;764.1 kJ','&minus;1273.9 kJ'],
+    ans: 0,
+    explain: {
+      correct: '&Delta;H = [2(&minus;393.5) + 3(&minus;285.8)] &minus; [(&minus;84.7) + 0] = &minus;787.0 &minus; 857.4 + 84.7 = <strong>&minus;1559.7 kJ</strong>.',
+      wrong: [
+        null,
+        'The sign is wrong. Combustion reactions are exothermic, so &Delta;H must be negative.',
+        'This value likely comes from an arithmetic error. Apply Hess\'s Law carefully: &Sigma;&Delta;H<sub>f</sub>(products) &minus; &Sigma;&Delta;H<sub>f</sub>(reactants).',
+        'This value uses incorrect stoichiometric coefficients. Make sure to multiply by 2 for CO<sub>2</sub> and 3 for H<sub>2</sub>O.'
+      ]
+    }
+  },
+  {
+    q: 'A reaction has &Delta;H = &minus;100 kJ and &Delta;S = +50 J/K. At what temperatures is this reaction spontaneous?',
+    opts: ['At all temperatures','Only at high temperatures','Only at low temperatures','At no temperature'],
+    ans: 0,
+    explain: {
+      correct: 'When &Delta;H is negative and &Delta;S is positive, &Delta;G = &Delta;H &minus; T&Delta;S is <strong>always negative</strong>, so spontaneous at all T.',
+      wrong: [
+        null,
+        'High-temperature spontaneity applies when both &Delta;H and &Delta;S are positive. Here &Delta;H is negative.',
+        'Low-temperature spontaneity applies when both &Delta;H and &Delta;S are negative. Here &Delta;S is positive.',
+        'A reaction with &minus;&Delta;H and +&Delta;S is spontaneous everywhere, not nowhere.'
+      ]
+    }
+  },
+  {
+    q: 'Entropy increases in which of the following processes?',
+    opts: ['A gas condenses into a liquid','A solid dissolves in water to form ions','The number of moles of gas decreases in a reaction','Temperature of a system decreases'],
+    ans: 1,
+    explain: {
+      correct: 'Dissolving a solid into ions <strong>increases disorder</strong> — the ordered crystal lattice breaks into freely moving ions in solution.',
+      wrong: [
+        'Condensation (gas &rarr; liquid) <em>decreases</em> entropy because gas molecules become more ordered.',
+        null,
+        'Fewer moles of gas means fewer microstates, so entropy <em>decreases</em>.',
+        'Decreasing temperature reduces molecular motion, which <em>decreases</em> entropy.'
+      ]
+    }
+  },
+  {
+    q: 'Using bond energies, which of the following is needed to calculate the enthalpy change of a reaction?',
+    opts: ['Only the bonds broken in the reactants','Only the bonds formed in the products','The sum of bonds broken minus the sum of bonds formed','The sum of bonds formed minus the sum of bonds broken'],
+    ans: 2,
+    explain: {
+      correct: '&Delta;H = &Sigma;(bonds broken) &minus; &Sigma;(bonds formed). Breaking bonds costs energy (+), forming bonds releases energy (&minus;).',
+      wrong: [
+        'You need both bonds broken AND bonds formed to calculate the net enthalpy change.',
+        'You need both bonds formed AND bonds broken to calculate the net enthalpy change.',
+        null,
+        'This is backwards. It should be bonds <em>broken</em> minus bonds <em>formed</em>, not the reverse.'
+      ]
+    }
+  },
+  {
+    q: 'The Arrhenius equation relates the rate constant to which of the following?',
+    opts: ['Concentration and pressure','Temperature and activation energy','Equilibrium constant and reaction quotient','Enthalpy and entropy'],
+    ans: 1,
+    explain: {
+      correct: 'The Arrhenius equation k = Ae<sup>&minus;Ea/RT</sup> relates k to <strong>temperature (T)</strong> and <strong>activation energy (E<sub>a</sub>)</strong>.',
+      wrong: [
+        'Concentration and pressure affect rate directly, but Arrhenius relates k to temperature and E<sub>a</sub>.',
+        null,
+        'K<sub>eq</sub> and Q relate to equilibrium, not kinetics. The Arrhenius equation is a kinetics equation.',
+        '&Delta;H and &Delta;S relate to thermodynamics (&Delta;G), not the rate constant.'
+      ]
+    }
+  },
+  {
+    q: 'A reaction mechanism has the following steps:<br>Step 1 (slow): NO<sub>2</sub> + NO<sub>2</sub> &rarr; NO<sub>3</sub> + NO<br>Step 2 (fast): NO<sub>3</sub> + CO &rarr; NO<sub>2</sub> + CO<sub>2</sub><br>What is the rate law for the overall reaction?',
+    opts: ['Rate = k[NO<sub>2</sub>][CO]','Rate = k[NO<sub>2</sub>]<sup>2</sup>','Rate = k[NO<sub>3</sub>][CO]','Rate = k[NO<sub>2</sub>]<sup>2</sup>[CO]'],
+    ans: 1,
+    explain: {
+      correct: 'The slow step has two NO<sub>2</sub> molecules colliding, so <strong>Rate = k[NO<sub>2</sub>]<sup>2</sup></strong>. The slow step determines the rate law.',
+      wrong: [
+        'CO is only in the fast step. The rate-determining step contains no CO.',
+        null,
+        'NO<sub>3</sub> is an intermediate formed in Step 1. Intermediates do not appear in overall rate laws.',
+        'CO only participates in the fast step and does not affect the rate law.'
+      ]
+    }
+  },
+  {
+    q: 'For the reaction N<sub>2</sub>(g) + 3H<sub>2</sub>(g) &rarr; 2NH<sub>3</sub>(g), &Delta;H = &minus;92 kJ. Which statement is true?',
+    opts: ['The reaction is endothermic and the products have higher energy','The reaction is exothermic and the products have lower energy','The bonds broken are stronger than the bonds formed','The activation energy is negative'],
+    ans: 1,
+    explain: {
+      correct: 'Negative &Delta;H means <strong>exothermic</strong> — energy is released, so products are at a <strong>lower energy</strong> than reactants.',
+      wrong: [
+        'Negative &Delta;H means exothermic, not endothermic. Products have <em>lower</em> energy.',
+        null,
+        'If bonds broken were stronger, &Delta;H would be positive (endothermic). Here &Delta;H is negative, so bonds <em>formed</em> are stronger.',
+        'Activation energy is always positive — it\'s the energy barrier molecules must overcome.'
+      ]
+    }
+  }
+];
+
+// ════════════════════════════════════
+//  FRQ GRADING RUBRICS (keyword-based)
+// ════════════════════════════════════
+const frqRubrics = {
+  frq1a: {
+    points: 2,
+    checks: [
+      { keywords: ['no2', 'second order', '2', 'squared'], desc: 'Identified second order in NO₂' },
+      { keywords: ['o3', 'first order', '1'], desc: 'Identified first order in O₃' },
+      { keywords: ['rate', 'k', 'no2', 'o3'], desc: 'Wrote correct rate law expression' }
+    ],
+    keyAnswer: 'Rate = k[NO₂]²[O₃]. Comparing exp 1 & 2: [O₃] doubles → rate doubles (1st order in O₃). Comparing exp 1 & 3: [NO₂] triples → rate ×9 (2nd order in NO₂).'
+  },
+  frq1b: {
+    points: 2,
+    checks: [
+      { keywords: ['150'], desc: 'Calculated k = 150' },
+      { keywords: ['l', 'mol', 's', 'unit'], desc: 'Included correct units' }
+    ],
+    keyAnswer: 'k = 3.0×10⁻⁴ / (0.010)²(0.020) = 3.0×10⁻⁴ / 2.0×10⁻⁶ = 150 L² mol⁻² s⁻¹'
+  },
+  frq1c: {
+    points: 2,
+    checks: [
+      { keywords: ['7.2', '10', '-3', '0.0072'], desc: 'Calculated correct rate value' },
+      { keywords: ['150', '0.040', '0.030'], desc: 'Showed substitution into rate law' }
+    ],
+    keyAnswer: 'Rate = 150(0.040)²(0.030) = 150(1.6×10⁻³)(0.030) = 7.2 × 10⁻³ mol/L/s'
+  },
+  frq1d: {
+    points: 2,
+    checks: [
+      { keywords: ['no', 'not consistent', 'not valid', 'inconsistent', 'does not match'], desc: 'Stated mechanism is not consistent' },
+      { keywords: ['first order', 'no2', 'slow step', 'second order'], desc: 'Explained slow step gives wrong order for NO₂' }
+    ],
+    keyAnswer: 'No. The slow step gives Rate = k[NO₂][O₃] (1st order in NO₂), but the experimental rate law is 2nd order in NO₂. Not consistent.'
+  },
+  frq2a: {
+    points: 2,
+    checks: [
+      { keywords: ['130', '130.0', '+130'], desc: 'Calculated ΔG ≈ +130 kJ' },
+      { keywords: ['not spontaneous', 'non-spontaneous', 'positive', 'not favorable'], desc: 'Identified reaction as not spontaneous' }
+    ],
+    keyAnswer: 'ΔG = 178 − 298(0.161) = +130.0 kJ. NOT spontaneous at 298 K (ΔG is positive).'
+  },
+  frq2b: {
+    points: 2,
+    checks: [
+      { keywords: ['1106', '1105', '1107'], desc: 'Calculated T ≈ 1106 K' },
+      { keywords: ['above', 'spontaneous', 'greater'], desc: 'Stated reaction is spontaneous above this T' }
+    ],
+    keyAnswer: 'T = ΔH/ΔS = 178/0.161 = 1106 K. Spontaneous above 1106 K.'
+  },
+  frq2c: {
+    points: 2,
+    checks: [
+      { keywords: ['gas', 'co2', 'gaseous', 'produced'], desc: 'Mentioned gas production' },
+      { keywords: ['solid', 'disorder', 'entropy', 'increase', 'more'], desc: 'Explained increased disorder from solid → gas' }
+    ],
+    keyAnswer: 'ΔS is positive because CO₂ gas is produced from solid reactants, increasing disorder. Gases have much higher entropy than solids.'
+  }
+};
+
+// ════════════════════════════════════
+//  STATE
+// ════════════════════════════════════
+let userAnswers = new Array(15).fill(-1);
+let timerSeconds = 45 * 60;
+let timerInterval = null;
+let submitted = false;
+
+// ════════════════════════════════════
+//  RENDER MCQs
+// ════════════════════════════════════
+const mcqContainer = document.getElementById('mcqContainer');
+const letters = ['A','B','C','D'];
+
+mcqs.forEach((q, i) => {
+  const card = document.createElement('div');
+  card.className = 'q-card';
+  card.id = `qcard${i}`;
+  card.innerHTML = `
+    <div class="q-num">Question ${i+1}</div>
+    <div class="q-text">${q.q}</div>
+    <div class="options">
+      ${q.opts.map((o, j) => `
+        <div class="opt" id="opt${i}_${j}" onclick="pick(${i},${j})">
+          <span class="letter">${letters[j]}</span><span>${o}</span>
+        </div>
+      `).join('')}
+    </div>
+    <div class="explanation" id="exp${i}"></div>
+  `;
+  mcqContainer.appendChild(card);
+});
+
+function pick(qi, oi) {
+  if (submitted) return;
+  userAnswers[qi] = oi;
+  for (let j = 0; j < 4; j++) {
+    document.getElementById(`opt${qi}_${j}`).className = 'opt' + (j === oi ? ' selected' : '');
+  }
+  updateProgress();
+}
+
+function updateProgress() {
+  const n = userAnswers.filter(a => a !== -1).length;
+  document.getElementById('progressPill').textContent = `${n} / 15 answered`;
+}
+
+// ════════════════════════════════════
+//  TIMER
+// ════════════════════════════════════
+function updateTimerDisplay() {
+  const m = Math.floor(timerSeconds / 60);
+  const s = timerSeconds % 60;
+  const el = document.getElementById('timerDisplay');
+  el.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  el.className = timerSeconds <= 300 ? 'timer-display warning' : 'timer-display';
+}
+function startTimer() {
+  if (timerInterval) return;
+  timerInterval = setInterval(() => {
+    if (timerSeconds <= 0) { clearInterval(timerInterval); timerInterval = null; submitExam(); return; }
+    timerSeconds--;
+    updateTimerDisplay();
+  }, 1000);
+}
+function pauseTimer() { clearInterval(timerInterval); timerInterval = null; }
+function resetTimer() { pauseTimer(); timerSeconds = 45*60; updateTimerDisplay(); }
+
+// ════════════════════════════════════
+//  SUBMIT EXAM
+// ════════════════════════════════════
+function submitExam() {
+  pauseTimer();
+  submitted = true;
+  let score = 0;
+
+  mcqs.forEach((q, i) => {
+    const card = document.getElementById(`qcard${i}`);
+    const exp = document.getElementById(`exp${i}`);
+    const correct = q.ans;
+    const picked = userAnswers[i];
+
+    // Highlight correct option
+    document.getElementById(`opt${i}_${correct}`).classList.add('show-correct');
+
+    if (picked === correct) {
+      score++;
+      card.classList.add('correct');
+      exp.className = 'explanation visible is-correct';
+      exp.innerHTML = `<strong>Correct!</strong> ${q.explain.correct}`;
+    } else {
+      if (picked !== -1) {
+        document.getElementById(`opt${i}_${picked}`).classList.add('show-wrong');
+        card.classList.add('incorrect');
+        exp.className = 'explanation visible is-wrong';
+        const wrongExplain = q.explain.wrong[picked] || 'This is not the correct answer.';
+        exp.innerHTML = `<strong>Incorrect.</strong> ${wrongExplain}<br><br><strong>The correct answer:</strong> ${q.explain.correct}`;
+      } else {
+        card.classList.add('incorrect');
+        exp.className = 'explanation visible is-wrong';
+        exp.innerHTML = `<strong>Not answered.</strong><br><br><strong>The correct answer:</strong> ${q.explain.correct}`;
+      }
+    }
+  });
+
+  // Grade FRQs
+  gradeFRQs();
+
+  // Show score
+  document.getElementById('scoreBig').textContent = `${score} / 15`;
+  document.getElementById('scoreBarFill').style.width = `${(score/15)*100}%`;
+  const panel = document.getElementById('scorePanel');
+  panel.classList.add('visible');
+  panel.scrollIntoView({ behavior: 'smooth' });
+}
+
+// ════════════════════════════════════
+//  FRQ GRADING
+// ════════════════════════════════════
+function gradeFRQs() {
+  for (const [id, rubric] of Object.entries(frqRubrics)) {
+    const textarea = document.getElementById(id);
+    const fb = document.getElementById('fb' + id.slice(3));
+    const ak = document.getElementById('ak' + id.slice(3));
+    const answer = (textarea ? textarea.value : '').toLowerCase().replace(/[^a-z0-9.\-+/ ]/g, ' ');
+
+    if (!answer.trim()) {
+      fb.className = 'frq-feedback visible needs-work';
+      fb.innerHTML = `<div class="fb-header">No answer provided (0 / ${rubric.points} pts)</div>See the answer key below.`;
+      ak.classList.add('visible');
+      continue;
+    }
+
+    let matched = 0;
+    let matchedDescs = [];
+    let missedDescs = [];
+
+    rubric.checks.forEach(check => {
+      const found = check.keywords.some(kw => answer.includes(kw.toLowerCase()));
+      if (found) { matched++; matchedDescs.push(check.desc); }
+      else { missedDescs.push(check.desc); }
+    });
+
+    const ratio = matched / rubric.checks.length;
+    let earnedPts = Math.round(ratio * rubric.points);
+    let level, emoji;
+
+    if (ratio >= 0.8) {
+      level = 'good'; emoji = 'Excellent!';
+      earnedPts = rubric.points;
+    } else if (ratio >= 0.4) {
+      level = 'partial'; emoji = 'Partial credit.';
+    } else {
+      level = 'needs-work'; emoji = 'Needs improvement.';
+    }
+
+    fb.className = `frq-feedback visible ${level}`;
+    let html = `<div class="fb-header">${emoji} (${earnedPts} / ${rubric.points} pts)</div>`;
+    if (matchedDescs.length) html += `<div style="margin-top:4px">&#10003; ${matchedDescs.join('<br>&#10003; ')}</div>`;
+    if (missedDescs.length) html += `<div style="margin-top:4px">&#10007; Missing: ${missedDescs.join(', ')}</div>`;
+    fb.innerHTML = html;
+    ak.classList.add('visible');
+  }
+}
+
+function showAllKeys() {
+  document.querySelectorAll('.frq-answer-key').forEach(el => el.classList.add('visible'));
+  // Also show MCQ explanations if not submitted
+  if (!submitted) {
+    mcqs.forEach((q, i) => {
+      const exp = document.getElementById(`exp${i}`);
+      document.getElementById(`opt${i}_${q.ans}`).classList.add('show-correct');
+      exp.className = 'explanation visible is-correct';
+      exp.innerHTML = `<strong>Answer: ${letters[q.ans]}</strong> &mdash; ${q.explain.correct}`;
+    });
+  }
+}
+
+function resetExam() {
+  submitted = false;
+  userAnswers = new Array(15).fill(-1);
+  document.querySelectorAll('.opt').forEach(el => el.className = 'opt');
+  document.querySelectorAll('.q-card').forEach(el => el.className = 'q-card');
+  document.querySelectorAll('.explanation').forEach(el => { el.className = 'explanation'; el.innerHTML = ''; });
+  document.querySelectorAll('.frq-textarea').forEach(el => el.value = '');
+  document.querySelectorAll('.frq-feedback').forEach(el => { el.className = 'frq-feedback'; el.innerHTML = ''; });
+  document.querySelectorAll('.frq-answer-key').forEach(el => el.classList.remove('visible'));
+  document.getElementById('scorePanel').classList.remove('visible');
+  updateProgress();
+  resetTimer();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
